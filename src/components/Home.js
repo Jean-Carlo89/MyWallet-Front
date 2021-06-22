@@ -3,6 +3,7 @@ import {Container} from './StyledComponents'
 import styled from 'styled-components'
 import{HiOutlineLogout} from 'react-icons/hi'
 import NoRegister from './NoRegister.js'
+import {CgAdd} from 'react-icons/cg'
 export default function Home(){
     return(
        
@@ -20,16 +21,18 @@ export default function Home(){
 
         <ButtonsContainer>
             <AddSubtractButton>
-
+                <CgAdd/>
+                <p>Nova entrada</p>
             </AddSubtractButton>
 
             <AddSubtractButton>
-                
+            <CgAdd/>
+                <p>Nova saída</p>
             </AddSubtractButton>
         </ButtonsContainer>
 
         <Link to="/sign-up">sign up</Link>
-        <Link to="/home">home</Link>
+        <Link to="/">login</Link>
         </Container>
     
     )
@@ -61,6 +64,7 @@ const MainContent = styled.ul`
  justify-content: center;
  align-items: center;
  background-color: white;
+ margin-bottom: 13px;
 
 `
 
@@ -74,5 +78,22 @@ const AddSubtractButton = styled.button`
     height: 114px;
     background-color: #A328D6;
     border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 17px;
+    color: white;
+
+    p{
+        width: 64px;
+        height: 40px;
+        border:1px solid red;
+        display:flex;
+        justify-content: flex-start;
+    }
+
+   svg{
+        font-size: 21px;
+    }
 `
 
