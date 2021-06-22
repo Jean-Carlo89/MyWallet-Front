@@ -52,6 +52,7 @@ export default function SignUp(){
             </DataInfo> 
 
             <Link to="/">login</Link>
+            <Link to="/home">home</Link>
             <button onClick={()=>console.log(signUpData)}>loginData</button>
         </Container>
     )

@@ -5,6 +5,7 @@ import GlobalStyle from '../GlobalStyles.js'
 /*---Import de rotas--*/
 import Login from './Login.js'
 import SignUp from './Sign-up'
+import Home from './Home.js'
 
 
 export default function App(){
@@ -18,6 +19,10 @@ export default function App(){
 
         <Route path = "/sign-up" exact>
           <SignUp/>
+        </Route>
+
+        <Route path = "/home" exact>
+          <Home/>
         </Route>
       </Switch>
    
