@@ -15,4 +15,6 @@ height: 46px;
 display: flex;
 justify-content: center;
 align-items: center;
+color: #868686;
+font-size: 20px;
 `

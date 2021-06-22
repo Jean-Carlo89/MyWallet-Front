@@ -37,6 +37,9 @@ export default function Login(){
            
             <Link to="/sign-up">sign up</Link>
             <Link to="/home">home</Link>
+            <Link to="/newEntry">entrada</Link>
+            <Link to="/newWithdraw">saída</Link>
+            
             <button onClick={()=>console.log(loginData)}>loginData</button>
         </Container>
 

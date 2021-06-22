@@ -4,7 +4,8 @@ const Container = styled.div`
     width: 100%;
     height: 100vh;
     display: flex;
-    justify-content: center;
+    //justify-content: center;
+    justify-content: ${props=>props.justify || 'center'};
     align-items: center;
     
     
@@ -65,5 +66,15 @@ const MessageH3 = styled.h3`
     color: white;
     
 `
-export {Container,DataInfo,Logo,Input,MessageH3}
+
+const ActionsHeader = styled.h1`
+font-size:26px;
+color: white;
+margin-top: 25px;
+margin-bottom: 40px;
+border:1px solid red;
+width: 326px;
+`
+
+export {Container,DataInfo,Logo,Input,MessageH3,ActionsHeader}
 export{ConfirmButton}

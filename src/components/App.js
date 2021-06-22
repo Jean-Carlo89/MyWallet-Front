@@ -6,7 +6,9 @@ import GlobalStyle from '../GlobalStyles.js'
 import Login from './Login.js'
 import SignUp from './Sign-up'
 import Home from './Home.js'
-
+import NewEntry from './Actions/NewEntry.js'
+import newWithdraw from './Actions/NewWithdraw.js'
+import NewWithdraw from './Actions/NewWithdraw.js'
 
 export default function App(){
   return (
@@ -24,6 +26,18 @@ export default function App(){
         <Route path = "/home" exact>
           <Home/>
         </Route>
+
+
+        <Route path = "/newEntry" exact>
+          <NewEntry/>
+        </Route>
+
+        <Route path = "/newWithdraw" exact>
+          <NewWithdraw/>
+        </Route>
+
+
+        
       </Switch>
    
   </Router>

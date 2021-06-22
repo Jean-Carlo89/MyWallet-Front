@@ -47,12 +47,14 @@ export default function SignUp(){
                     
                     />
                     
-                    <ConfirmButton onClick={login}>Entrar</ConfirmButton>
+                    <ConfirmButton onClick={login}>Cadastrar</ConfirmButton>
                     <MessageH3>Primeira vez? Cadastre-se</MessageH3>
             </DataInfo> 
 
             <Link to="/">login</Link>
             <Link to="/home">home</Link>
+            <Link to="/newEntry">entrada</Link>
+            <Link to="/newWithdraw">saída</Link>
             <button onClick={()=>console.log(signUpData)}>loginData</button>
         </Container>
     )
@@ -61,5 +63,6 @@ export default function SignUp(){
         alert('Tentei logar')
     }
 }
+            
 
 

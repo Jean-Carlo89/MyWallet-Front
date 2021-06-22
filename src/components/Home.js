@@ -1,10 +1,13 @@
-import {Link} from 'react-router-dom'
+import {UseHistory,Link, useHistory} from 'react-router-dom'
 import {Container} from './StyledComponents'
 import styled from 'styled-components'
 import{HiOutlineLogout} from 'react-icons/hi'
 import NoRegister from './NoRegister.js'
-import {CgAdd} from 'react-icons/cg'
+import {CgAdd,CgRemove} from 'react-icons/cg'
+
+
 export default function Home(){
+    const history = useHistory()
     return(
        
 
@@ -20,19 +23,21 @@ export default function Home(){
         </MainContent>
 
         <ButtonsContainer>
-            <AddSubtractButton>
+            <AddSubtractButton onClick={()=>history.push("/newEntry")}>
                 <CgAdd/>
                 <p>Nova entrada</p>
             </AddSubtractButton>
 
-            <AddSubtractButton>
-            <CgAdd/>
+            <AddSubtractButton onClick={()=>history.push("/newWithDraw")}>
+                <CgRemove/>
                 <p>Nova saída</p>
             </AddSubtractButton>
         </ButtonsContainer>
 
         <Link to="/sign-up">sign up</Link>
         <Link to="/">login</Link>
+        <Link to="/newEntry">entrada</Link>
+        <Link to="/newWithdraw">saída</Link>
         </Container>
     
     )
