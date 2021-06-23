@@ -12,7 +12,7 @@ import axios from 'axios'
 export default function Home(){
     const history = useHistory()
     const [transactions,setTransactions] = useState([])
-    const [loading,setLoading] = useState(false)
+    const [loading,setLoading] = useState(true)
     const config = {}
     
     useEffect(()=>{
@@ -20,6 +20,10 @@ export default function Home(){
         .then((response)=>{
             console.log(response)
             setTransactions([...response.data])
+            setTimeout(()=>{
+                setLoading(false)
+            },800)
+            
         })
         .catch((responseError)=>{
             console.log(responseError)
@@ -32,7 +36,7 @@ export default function Home(){
        <Container>
         
         {loading 
-            ? <Loader type="Circles" className='loader' color="#FFF"  />
+            ? <Loader type="Circles" className='loader' color="#FFF"  timeout={3000} />
             :
      <>   
         <Header>
@@ -42,20 +46,18 @@ export default function Home(){
 
         <MainContent register={transactions.length}>
              { transactions.length===0 
-                ?<NoRegister/>
-                :
-             
-                transactions.map((item)=>{
-                    return(
-                        <Register>
-                            <div>
-                                <p>{item.date}</p>
-                                <h3>{item.description}</h3>
-                            </div>
+                ?   <NoRegister/>
+                :   transactions.map((item)=>{
+                        return(
+                            <Register>
+                                <div>
+                                    <p>{item.date}</p>
+                                    <h3>{item.description}</h3>
+                                </div>
 
-                        <h3 style={item.type==="deposit" ?  {color:'green'} : {color:'red'}}>{(item.price/100).toFixed(2)}</h3>
-                        </Register>
-                    )
+                            <h3 style={item.type==="deposit" ?  {color:'green'} : {color:'red'}}>{(item.price/100).toFixed(2)}</h3>
+                            </Register>
+                        )
              }) }
              
              {/* <Register>
