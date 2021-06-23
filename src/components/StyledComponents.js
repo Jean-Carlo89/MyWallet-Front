@@ -12,7 +12,7 @@ const Container = styled.div`
     
     flex-direction: column;
 
-
+   
 `
 
 const DataInfo = styled.div`
@@ -76,5 +76,22 @@ border:1px solid red;
 width: 326px;
 `
 
-export {Container,DataInfo,Logo,Input,MessageH3,ActionsHeader}
+const Return = styled.div`
+
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+color: white;
+margin-bottom: 20px;
+font-size: 15px;
+
+    svg{
+        color: white;
+        font-size: 35px;
+    }
+`
+
+
+export {Container,DataInfo,Logo,Input,MessageH3,ActionsHeader,Return}
 export{ConfirmButton}

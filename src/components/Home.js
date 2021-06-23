@@ -4,31 +4,85 @@ import styled from 'styled-components'
 import{HiOutlineLogout} from 'react-icons/hi'
 import NoRegister from './NoRegister.js'
 import {CgAdd,CgRemove} from 'react-icons/cg'
+import { useState,useEffect} from 'react'
+import Loader from "react-loader-spinner";
+import axios from 'axios'
 
 
 export default function Home(){
     const history = useHistory()
+    const [transactions,setTransactions] = useState([])
+    const [loading,setLoading] = useState(false)
+    const config = {}
+    
+    useEffect(()=>{
+        axios.get("http://localhost:4000/home",config)
+        .then((response)=>{
+            console.log(response)
+            setTransactions([...response.data])
+        })
+        .catch((responseError)=>{
+            console.log(responseError)
+        })
+    },[])
+   
+    
     return(
-       
 
        <Container>
-            
+        
+        {loading 
+            ? <Loader type="Circles" className='loader' color="#FFF"  />
+            :
+     <>   
         <Header>
             <h1>Olá, nome da pessoa</h1>
             <span><HiOutlineLogout/></span>
         </Header>
 
-        <MainContent>
-            <NoRegister/>
+        <MainContent register={transactions.length}>
+             {transactions.map((item)=>{
+                return(
+                    <Register>
+                        <div>
+                            <p>{item.date}</p>
+                            <h3>{item.description}</h3>
+                        </div>
+
+                    <h3 style={item.type==="deposit" ?  {color:'green'} : {color:'red'}}>{(item.price/100).toFixed(2)}</h3>
+                    </Register>
+                )
+             })}
+             
+             {/* <Register>
+                 <div>
+                    <p>date</p>
+                    <h3>alomoço</h3>
+                 </div>
+
+                 <h3>price</h3>
+
+             </Register>
+
+             <Register>
+                 <div>
+                    <p>date</p>
+                    <h3>alomoço</h3>
+                 </div>
+
+                 <h3>price</h3>
+
+             </Register> */}
+             {/*<NoRegister/> */}
         </MainContent>
 
         <ButtonsContainer>
-            <AddSubtractButton onClick={()=>history.push("/newEntry")}>
+            <AddSubtractButton onClick={()=>history.push("/newTransaction/deposit")}>
                 <CgAdd/>
                 <p>Nova entrada</p>
             </AddSubtractButton>
 
-            <AddSubtractButton onClick={()=>history.push("/newWithDraw")}>
+            <AddSubtractButton onClick={()=>history.push("/newTransaction/withdraw")}>
                 <CgRemove/>
                 <p>Nova saída</p>
             </AddSubtractButton>
@@ -36,8 +90,10 @@ export default function Home(){
 
         <Link to="/sign-up">sign up</Link>
         <Link to="/">login</Link>
-        <Link to="/newEntry">entrada</Link>
+        <Link to="/newTransaction">entrada</Link>
         <Link to="/newWithdraw">saída</Link>
+</>
+}
         </Container>
     
     )
@@ -49,6 +105,7 @@ border:1px solid red;
 display: flex;
 justify-content: space-between;
 margin-bottom: 15px;
+margin-top: 10px;
 
     h1{
         font-size: 26px;
@@ -66,7 +123,7 @@ const MainContent = styled.ul`
  border: 1px solid yellow;
  display: flex;
  flex-direction: column;
- justify-content: center;
+ justify-content: ${props=>props.register ? 'flex-start' : 'center'};
  align-items: center;
  background-color: white;
  margin-bottom: 13px;
@@ -99,6 +156,30 @@ const AddSubtractButton = styled.button`
 
    svg{
         font-size: 21px;
+    }
+`
+
+const Register = styled.li`
+width: 95%;
+
+border: 1px solid red;
+
+display: flex;
+justify-content: space-between;
+margin-top: 10px;
+font-size: 16px;
+
+    
+    div{
+        display: flex;
+        justify-content: space-between;
+        border:1px solid blue;
+        //width: 40%;
+            p{
+                margin-right: 10px;
+            }
+
+
     }
 `
 
