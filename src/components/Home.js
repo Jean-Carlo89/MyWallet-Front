@@ -41,18 +41,22 @@ export default function Home(){
         </Header>
 
         <MainContent register={transactions.length}>
-             {transactions.map((item)=>{
-                return(
-                    <Register>
-                        <div>
-                            <p>{item.date}</p>
-                            <h3>{item.description}</h3>
-                        </div>
+             { transactions.length===0 
+                ?<NoRegister/>
+                :
+             
+                transactions.map((item)=>{
+                    return(
+                        <Register>
+                            <div>
+                                <p>{item.date}</p>
+                                <h3>{item.description}</h3>
+                            </div>
 
-                    <h3 style={item.type==="deposit" ?  {color:'green'} : {color:'red'}}>{(item.price/100).toFixed(2)}</h3>
-                    </Register>
-                )
-             })}
+                        <h3 style={item.type==="deposit" ?  {color:'green'} : {color:'red'}}>{(item.price/100).toFixed(2)}</h3>
+                        </Register>
+                    )
+             }) }
              
              {/* <Register>
                  <div>
