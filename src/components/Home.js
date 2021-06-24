@@ -10,18 +10,28 @@ import axios from 'axios'
 import Usercontext from './UserContext.js'
 
 
+
 export default function Home(){
     const history = useHistory()
     const [transactions,setTransactions] = useState([])
     const [loading,setLoading] = useState(true)
-    const config = {}
+    const [total,setTotal] = useState('')
     const {user,setUser} = useContext(Usercontext)
+    console.log(user)
+
+    const config = {
+        headers:{
+            'Authorization' : `Bearer ${user.token}`
+        }
+    }
+    
     
     useEffect(()=>{
         axios.get("http://localhost:4000/home",config)
         .then((response)=>{
             console.log(response)
             setTransactions([...response.data])
+            console.log(transactions.data)
         
             setLoading(false)
            
@@ -30,6 +40,20 @@ export default function Home(){
         .catch((responseError)=>{
             console.log(responseError)
         })
+        let sum = 0
+        
+        transactions.forEach((item)=>{
+        
+            if(item.type==='deposit'){
+                sum += item.value
+            }else{
+                sum -= item.value
+            }
+        
+        })
+
+        setTotal(sum)
+        
     },[])
    
     
@@ -45,25 +69,29 @@ export default function Home(){
             <h1>Olá,{user.user}</h1>
             <span><HiOutlineLogout/></span>
         </Header>
+            <Relative>
+                <MainContent register={transactions.length}>
+                    { transactions.length===0 
+                        ?   <NoRegister/>
+                        :   transactions.map((item)=>{
+                                return(
+                                    <Register>
+                                        <div>
+                                            <p>{item.date}</p>
+                                            <h3>{item.description}</h3>
+                                        </div>
 
-        <MainContent register={transactions.length}>
-             { transactions.length===0 
-                ?   <NoRegister/>
-                :   transactions.map((item)=>{
-                        return(
-                            <Register>
-                                <div>
-                                    <p>{item.date}</p>
-                                    <h3>{item.description}</h3>
-                                </div>
-
-                            <h3 style={item.type==="deposit" ?  {color:'green'} : {color:'red'}}>{(item.price/100).toFixed(2)}</h3>
-                            </Register>
-                        )
-             }) }
-             
-             
-        </MainContent>
+                                    <h3 style={item.type==="deposit" ?  {color:'green'} : {color:'red'}}>{(item.value/100).toFixed(2)}</h3>
+                                    </Register>
+                                )
+                    }) }
+                    
+                   
+                </MainContent>
+                <Total sum={total>=0?'green':'red'}><p>Saldo</p> <span > {(total/100).toFixed(2)} </span></Total>
+            </Relative>
+               
+            
 
         <ButtonsContainer>
             <AddSubtractButton onClick={()=>history.push("/newTransaction/deposit")}>
@@ -81,6 +109,7 @@ export default function Home(){
         <Link to="/">login</Link>
         <Link to="/newTransaction">entrada</Link>
         <Link to="/newWithdraw">saída</Link>
+        <button onClick={()=>console.log(transactions)}>aaa</button>
 </>
 }
         </Container>
@@ -115,8 +144,46 @@ const MainContent = styled.ul`
  justify-content: ${props=>props.register ? 'flex-start' : 'center'};
  align-items: center;
  background-color: white;
- margin-bottom: 13px;
+ border-radius: 5px;
  overflow-y: scroll;
+ margin-bottom: 13px;
+ //position: relative;
+`
+
+const Relative = styled.div`
+position: relative;
+height: auto;
+border-radius: 5px;
+`
+
+
+
+ const Total = styled.div`
+width: 100%;
+height: 20px;
+position: absolute;
+bottom: 0;
+right: 0;
+display: flex;
+justify-content: space-between;
+z-index:2;
+background:white;
+align-items: center;
+border-radius: 5px;
+color: ${props=>props.sum};
+
+    p{
+        color: black;
+        font-size: 17px;
+        margin-left: 5px;
+        font-weight: bold;
+    }
+    span{
+        
+        font-size: 17px;
+        margin-right: 5px;
+    }
+
 
 `
 
@@ -174,4 +241,5 @@ font-size: 16px;
 
     }
 `
+
 

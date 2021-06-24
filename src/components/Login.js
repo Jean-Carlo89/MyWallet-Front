@@ -3,7 +3,7 @@ import {Container,DataInfo,Logo,
     Input,ConfirmButton,MessageH3} from './StyledComponents.js'
 
 import{Link,useHistory} from 'react-router-dom'
-import {useContext, useState} from 'react'
+import {useContext, useEffect, useState} from 'react'
 import axios from 'axios'
 import Usercontext from './UserContext.js'
 
@@ -15,6 +15,20 @@ export default function Login(){
         loginData[key]=e.target.value
         setLoginData({...loginData})
     }
+
+    useEffect(()=>{
+       if(localStorage.length!==0){
+            const userDataString = localStorage.getItem("info")
+            const userData= JSON.parse(userDataString)
+            setUser(userData)
+            history.push("/home")
+        }
+
+   // console.log(localStorage.length)
+   // console.log(localStorage)
+    //localStorage.clear()
+    
+    },[])
 
     
     return(
@@ -60,8 +74,18 @@ export default function Login(){
             console.log(response)
             setUser(response.data)
 
+            const userData =response.data
 
-           history.push("/home")
+           // const infos = {token:response.data.token, user:response.data.user}
+
+            const userDataString = JSON.stringify(userData)
+            localStorage.setItem('info',userDataString)
+           // const infosString = JSON.stringify(infos);
+
+            console.log(userDataString)
+            //console.log(infosString)
+
+          history.push("/home")
         })
         .catch((e)=>{
             console.log(e)

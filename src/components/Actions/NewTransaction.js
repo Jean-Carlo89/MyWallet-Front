@@ -3,13 +3,15 @@ import {Container,Input,ConfirmButton,ActionsHeader,Return} from '../StyledCompo
 import{GiReturnArrow} from 'react-icons/gi'
 import {useHistory,useParams} from 'react-router-dom'
 import axios from 'axios'
-import {useState} from 'react'
+import {useContext, useState} from 'react'
 //apagar esse link
 import{Link} from 'react-router-dom'
+import Usercontext from '../UserContext.js'
 
 
 export default function NewTransaction(){
     const {type} = useParams()
+    const{user} = useContext(Usercontext)
     
     
     console.log(type)
@@ -54,11 +56,27 @@ export default function NewTransaction(){
 
     function saveAction(){
 
-        
+        const config = {
+            headers:{
+                'Authorization' : `Bearer ${user.token}`
+            }
+        }
         
         const body = {...entryData,transactionType:type}
 
-        axios.post('http://localhost:4000/entry',body)
+      //  console.log(body["value"])
+
+        if(!body["value"] || !body["description"]){
+            alert('Os campos não podem estar vazios')
+            return
+        }
+
+        if(body.value === '' || body.description===''){
+            alert('Os campos não podem estar vazios')
+            return
+        }
+
+        axios.post('http://localhost:4000/entry',body,config)
         .then((response)=>{
             console.log(response)
 

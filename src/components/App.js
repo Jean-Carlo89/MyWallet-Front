@@ -17,7 +17,8 @@ import {useState} from 'react'
 
 export default function App(){
 
-  const [user,setUser] = useState([])
+  const [user,setUser] = useState(localStorage.length !== 0 ? JSON.parse(localStorage.getItem('info')):[])
+ // const [user,setUser] = useState([])
  
   return (
     <UserContext.Provider value={{user,setUser}}> 
