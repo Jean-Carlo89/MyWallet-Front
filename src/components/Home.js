@@ -3,7 +3,7 @@ import {Container} from './StyledComponents'
 import styled from 'styled-components'
 import{HiOutlineLogout} from 'react-icons/hi'
 import NoRegister from './NoRegister.js'
-import {CgAdd,CgRemove} from 'react-icons/cg'
+import {CgAdd,CgLogOut,CgRemove} from 'react-icons/cg'
 import { useState,useEffect, useContext} from 'react'
 import Loader from "react-loader-spinner";
 import axios from 'axios'
@@ -31,28 +31,31 @@ export default function Home(){
         .then((response)=>{
             console.log(response)
             setTransactions([...response.data])
-            console.log(transactions.data)
+            console.log(response.data)
         
+            
+            
+            let sum = 0
+        
+            response.data.forEach((item)=>{
+            
+                if(item.type==='deposit'){
+                    sum += item.value
+                }else{
+                    sum -= item.value
+                }
+            
+            })
+            console.log(sum)
+    
+            setTotal(sum)
             setLoading(false)
-           
             
         })
         .catch((responseError)=>{
             console.log(responseError)
         })
-        let sum = 0
         
-        transactions.forEach((item)=>{
-        
-            if(item.type==='deposit'){
-                sum += item.value
-            }else{
-                sum -= item.value
-            }
-        
-        })
-
-        setTotal(sum)
         
     },[])
    
@@ -66,8 +69,8 @@ export default function Home(){
             :
      <>   
         <Header>
-            <h1>Olá,{user.user}</h1>
-            <span><HiOutlineLogout/></span>
+            <h1>Olá, {user.user}</h1>
+            <span onClick={()=>logOut()}><HiOutlineLogout/></span>
         </Header>
             <Relative>
                 <MainContent register={transactions.length}>
@@ -104,17 +107,22 @@ export default function Home(){
                 <p>Nova saída</p>
             </AddSubtractButton>
         </ButtonsContainer>
-
+{/* 
         <Link to="/sign-up">sign up</Link>
         <Link to="/">login</Link>
         <Link to="/newTransaction">entrada</Link>
         <Link to="/newWithdraw">saída</Link>
-        <button onClick={()=>console.log(transactions)}>aaa</button>
+        <button onClick={()=>console.log(transactions)}>aaa</button> */}
 </>
 }
         </Container>
     
     )
+
+    function logOut(){
+        localStorage.clear()
+        history.push("/")
+    }
 }
 
 const Header=styled.div`
@@ -146,7 +154,7 @@ const MainContent = styled.ul`
  background-color: white;
  border-radius: 5px;
  overflow-y: scroll;
- margin-bottom: 13px;
+ 
  //position: relative;
 `
 
@@ -154,6 +162,7 @@ const Relative = styled.div`
 position: relative;
 height: auto;
 border-radius: 5px;
+margin-bottom: 13px;
 `
 
 

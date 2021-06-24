@@ -1,10 +1,11 @@
 import {Container,DataInfo,Logo,
     Input,ConfirmButton,MessageH3} from './StyledComponents.js'
-    import{Link} from 'react-router-dom'
+    import{Link,useHistory} from 'react-router-dom'
 import {useState} from 'react'
+import axios from 'axios'
 
 export default function SignUp(){
-    
+    const history = useHistory()
         
     const [signUpData,setSignUpData] = useState({})
     function SaveInfo(e,key){
@@ -19,14 +20,14 @@ export default function SignUp(){
                     <Input placeholder="Nome" type='text' 
                             onChange={(e)=>SaveInfo(e,'name')}
                             //disabled={loading}
-                            onKeyPress={(e)=>{if(e.code==="Enter"){login()}}}
+                            onKeyPress={(e)=>{if(e.code==="Enter"){signUp()}}}
                             value={signUpData.name || ''}
                             />
                     
                     <Input placeholder="E-mail" type='text' 
                             onChange={(e)=>SaveInfo(e,'email')}
                             //disabled={loading}
-                            onKeyPress={(e)=>{if(e.code==="Enter"){login()}}}
+                            onKeyPress={(e)=>{if(e.code==="Enter"){signUp()}}}
                             value={signUpData.email || ''}
                     
                     />
@@ -34,7 +35,7 @@ export default function SignUp(){
                     <Input placeholder="Senha" type='password' 
                             onChange={(e)=>SaveInfo(e,'password')}
                             //disabled={loading}
-                            onKeyPress={(e)=>{if(e.code==="Enter"){login()}}}
+                            onKeyPress={(e)=>{if(e.code==="Enter"){signUp()}}}
                             value={signUpData.password || ''}
                     
                     />
@@ -42,25 +43,54 @@ export default function SignUp(){
                     <Input placeholder="Confirme a senha" type='password' 
                             onChange={(e)=>SaveInfo(e,'passwordConfirmation')}
                             //disabled={loading}
-                            onKeyPress={(e)=>{if(e.code==="Enter"){login()}}}
+                            onKeyPress={(e)=>{if(e.code==="Enter"){signUp()}}}
                             value={signUpData.passwordConfirmation || ''}
                     
                     />
                     
-                    <ConfirmButton onClick={login}>Cadastrar</ConfirmButton>
-                    <MessageH3>Primeira vez? Cadastre-se</MessageH3>
+                    <ConfirmButton onClick={signUp}>Cadastrar</ConfirmButton>
+                    <MessageH3 onClick={()=>history.push("/")}>Já tem uma conta? Entre agora!</MessageH3>
             </DataInfo> 
 
-            <Link to="/">login</Link>
-            <Link to="/home">home</Link>
-            <Link to="/newEntry">entrada</Link>
-            <Link to="/newWithdraw">saída</Link>
-            <button onClick={()=>console.log(signUpData)}>loginData</button>
         </Container>
     )
 
-    function login(){
-        alert('Tentei logar')
+    function signUp(){
+        //alert('Tentei logar')
+        const body = {...signUpData}
+        
+
+        
+        if(!body["name"] || !body["email"] || !body["password"] || !body["passwordConfirmation"]){
+            alert('Os campos não podem estar vazios')
+            return
+        }
+
+        if(body["name"]==="" || body["email"]==="" || body["password"]==="" || body["passwordConfirmation"]===""){
+            alert('Os campos não podem estar vazios')
+            return
+        }
+
+        if(body["password"] !== body["passwordConfirmation"]){
+            alert('As senhas precisam ser iguais')
+            return
+        }
+
+    
+        delete body["passwordConfirmation"]
+        console.log(body)
+
+       axios.post("http://localhost:4000/sign-up",body)
+       .then(()=>{
+            history.push("/")
+       })
+       .catch(()=>{
+           alert('Houve um erro ao fazer o cadastro. Por favor tente novamente')
+       })
+        
+
+
+
     }
 }
             

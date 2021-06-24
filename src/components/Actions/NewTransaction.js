@@ -46,11 +46,6 @@ export default function NewTransaction(){
                 <h2>Retornar</h2>
             </Return>
 
-        <Link to="/sign-up">sign up</Link>
-        <Link to="/">login</Link>
-        
-        <Link to="/newWithdraw">saída</Link>
-        <button onClick={()=>console.log(entryData)}>entryData</button>
         </Container>
     )
 
@@ -78,11 +73,22 @@ export default function NewTransaction(){
 
         axios.post('http://localhost:4000/entry',body,config)
         .then((response)=>{
-            console.log(response)
+            //console.log(response)
+            
+            const resetData = {
+                value:"",
+                description:""
+            }
+
+            setEntryData({...resetData})
+
+            // entryData["value"]=""
+            // entryData["description"]=""
+
 
         })
         .catch((responseError)=>{
-            console.log(responseError)
+           // console.log(responseError)
             alert('Houve um erro.Por favor recarregue a página')
         })
 

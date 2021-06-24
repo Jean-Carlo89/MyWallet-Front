@@ -52,15 +52,10 @@ export default function Login(){
                     
                     
                     <ConfirmButton onClick={login}>Entrar</ConfirmButton>
-                    <MessageH3>Primeira vez? Cadastre-se</MessageH3>
+                    <MessageH3 onClick={()=>history.push("/sign-up")}>Primeira vez? Cadastre-se</MessageH3>
             </DataInfo> 
            
-            <Link to="/sign-up">sign up</Link>
-            <Link to="/home">home</Link>
-            <Link to="/newEntry">entrada</Link>
-            <Link to="/newWithdraw">saída</Link>
-            
-            <button onClick={()=>console.log(loginData)}>loginData</button>
+          
         </Container>
 
         
