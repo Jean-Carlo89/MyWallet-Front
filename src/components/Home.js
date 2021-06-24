@@ -4,9 +4,10 @@ import styled from 'styled-components'
 import{HiOutlineLogout} from 'react-icons/hi'
 import NoRegister from './NoRegister.js'
 import {CgAdd,CgRemove} from 'react-icons/cg'
-import { useState,useEffect} from 'react'
+import { useState,useEffect, useContext} from 'react'
 import Loader from "react-loader-spinner";
 import axios from 'axios'
+import Usercontext from './UserContext.js'
 
 
 export default function Home(){
@@ -14,15 +15,16 @@ export default function Home(){
     const [transactions,setTransactions] = useState([])
     const [loading,setLoading] = useState(true)
     const config = {}
+    const {user,setUser} = useContext(Usercontext)
     
     useEffect(()=>{
         axios.get("http://localhost:4000/home",config)
         .then((response)=>{
             console.log(response)
             setTransactions([...response.data])
-            setTimeout(()=>{
-                setLoading(false)
-            },800)
+        
+            setLoading(false)
+           
             
         })
         .catch((responseError)=>{
@@ -40,7 +42,7 @@ export default function Home(){
             :
      <>   
         <Header>
-            <h1>Olá, nome da pessoa</h1>
+            <h1>Olá,{user.user}</h1>
             <span><HiOutlineLogout/></span>
         </Header>
 
@@ -60,26 +62,7 @@ export default function Home(){
                         )
              }) }
              
-             {/* <Register>
-                 <div>
-                    <p>date</p>
-                    <h3>alomoço</h3>
-                 </div>
-
-                 <h3>price</h3>
-
-             </Register>
-
-             <Register>
-                 <div>
-                    <p>date</p>
-                    <h3>alomoço</h3>
-                 </div>
-
-                 <h3>price</h3>
-
-             </Register> */}
-             {/*<NoRegister/> */}
+             
         </MainContent>
 
         <ButtonsContainer>
@@ -133,6 +116,7 @@ const MainContent = styled.ul`
  align-items: center;
  background-color: white;
  margin-bottom: 13px;
+ overflow-y: scroll;
 
 `
 
@@ -183,6 +167,8 @@ font-size: 16px;
         //width: 40%;
             p{
                 margin-right: 10px;
+                color: #C6C6C6;
+
             }
 
 

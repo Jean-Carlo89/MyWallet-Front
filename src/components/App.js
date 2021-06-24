@@ -9,39 +9,47 @@ import Home from './Home.js'
 import NewTransaction from './Actions/NewTransaction.js'
 
 
+import UserContext from './UserContext.js'
+import {useState} from 'react'
+
 // import newWithdraw from './Actions/NewWithdraw.js'
 // import NewWithdraw from './Actions/NewWithdraw.js'
 
 export default function App(){
+
+  const [user,setUser] = useState([])
+ 
   return (
-  <Router>
-    <GlobalStyle/>
-      <Switch>
-        <Route path = "/" exact>
-          <Login/>
-        </Route>
+    <UserContext.Provider value={{user,setUser}}> 
+        <Router>
+          <GlobalStyle/>
+            <Switch>
+              <Route path = "/" exact>
+                <Login/>
+              </Route>
 
-        <Route path = "/sign-up" exact>
-          <SignUp/>
-        </Route>
+              <Route path = "/sign-up" exact>
+                <SignUp/>
+              </Route>
 
-        <Route path = "/home" exact>
-          <Home/>
-        </Route>
-
-
-        <Route path = "/newTransaction/:type" exact>
-          <NewTransaction/>
-        </Route>
-
-        {/* <Route path = "/newWithdraw" exact>
-          <NewWithdraw/>
-        </Route> */}
+              <Route path = "/home" exact>
+                <Home/>
+              </Route>
 
 
+              <Route path = "/newTransaction/:type" exact>
+                <NewTransaction/>
+              </Route>
+
+              {/* <Route path = "/newWithdraw" exact>
+                <NewWithdraw/>
+              </Route> */}
+
+
+              
+            </Switch>
         
-      </Switch>
-   
-  </Router>
+        </Router>
+    </UserContext.Provider> 
   )
 }
