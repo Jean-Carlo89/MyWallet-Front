@@ -4,8 +4,7 @@ import{GiReturnArrow} from 'react-icons/gi'
 import {useHistory,useParams} from 'react-router-dom'
 import axios from 'axios'
 import {useContext, useState} from 'react'
-//apagar esse link
-import{Link} from 'react-router-dom'
+
 import Usercontext from '../UserContext.js'
 
 
@@ -13,8 +12,6 @@ export default function NewTransaction(){
     const {type} = useParams()
     const{user} = useContext(Usercontext)
     
-    
-    console.log(type)
     const [entryData,setEntryData] = useState({})
     const history = useHistory()
 
@@ -59,7 +56,7 @@ export default function NewTransaction(){
         
         const body = {...entryData,transactionType:type}
 
-      //  console.log(body["value"])
+      
 
         if(!body["value"] || !body["description"]){
             alert('Os campos não podem estar vazios')
@@ -73,7 +70,6 @@ export default function NewTransaction(){
 
         axios.post('http://localhost:4000/entry',body,config)
         .then((response)=>{
-            //console.log(response)
             
             const resetData = {
                 value:"",
@@ -82,13 +78,9 @@ export default function NewTransaction(){
 
             setEntryData({...resetData})
 
-            // entryData["value"]=""
-            // entryData["description"]=""
-
-
         })
         .catch((responseError)=>{
-           // console.log(responseError)
+           
             alert('Houve um erro.Por favor recarregue a página')
         })
 

@@ -4,15 +4,9 @@ const Container = styled.div`
     width: 100%;
     height: 100vh;
     display: flex;
-    //justify-content: center;
     justify-content: ${props=>props.justify || 'center'};
     align-items: center;
-    
-    
-    
     flex-direction: column;
-
-   
 `
 
 const DataInfo = styled.div`
@@ -28,7 +22,6 @@ const Logo = styled.h1`
     color: white;
     font-size: 32px;
     margin-bottom: 24px;
-
 `
 
 const Input = styled.input`
@@ -39,12 +32,11 @@ const Input = styled.input`
     margin-bottom: 13px;
     padding-left: 10px;
 
-
-    ::placeholder{
-        font-family: 'Raleway', sans-serif;
-        color:black;
-        font-size: 20px;
-    }
+        ::placeholder{
+            font-family: 'Raleway', sans-serif;
+            color:black;
+            font-size: 20px;
+        }
 `
 
 const ConfirmButton = styled.button`
@@ -58,13 +50,11 @@ const ConfirmButton = styled.button`
     justify-content: center;
     align-items: center;
     margin-bottom: 48px;
-
 `
 
 const MessageH3 = styled.h3`
     font-size:14px;
     color: white;
-    
 `
 
 const ActionsHeader = styled.h1`
@@ -72,7 +62,6 @@ font-size:26px;
 color: white;
 margin-top: 25px;
 margin-bottom: 40px;
-border:1px solid red;
 width: 326px;
 `
 

@@ -2,15 +2,17 @@
 import {Container,DataInfo,Logo,
     Input,ConfirmButton,MessageH3} from './StyledComponents.js'
 
-import{Link,useHistory} from 'react-router-dom'
+import{useHistory} from 'react-router-dom'
 import {useContext, useEffect, useState} from 'react'
 import axios from 'axios'
 import Usercontext from './UserContext.js'
+import Loader from "react-loader-spinner";
 
 export default function Login(){
     const history = useHistory()
     const [loginData,setLoginData] = useState({})
     const {user,setUser} = useContext(Usercontext)
+    const [loading,setLoading] = useState(false)
     function SaveInfo(e,key){
         loginData[key]=e.target.value
         setLoginData({...loginData})
@@ -23,11 +25,6 @@ export default function Login(){
             setUser(userData)
             history.push("/home")
         }
-
-   // console.log(localStorage.length)
-   // console.log(localStorage)
-    //localStorage.clear()
-    
     },[])
 
     
@@ -38,20 +35,30 @@ export default function Login(){
                     <Logo>MyWallet</Logo>
                     <Input placeholder="E-mail" type='text'
                             onChange={(e)=>SaveInfo(e,'email')}
-                            //disabled={loading}
+                            disabled={loading}
                             onKeyPress={(e)=>{if(e.code==="Enter"){login()}}}
                             value={loginData.email || ''}
                     />
                     
                     <Input placeholder="Senha" type='password'
                             onChange={(e)=>SaveInfo(e,'password')}
-                            //disabled={loading}
+                            disabled={loading}
                             onKeyPress={(e)=>{if(e.code==="Enter"){login()}}}
                             value={loginData.password || ''}
                     />
                     
                     
-                    <ConfirmButton onClick={login}>Entrar</ConfirmButton>
+                    <ConfirmButton onClick={login}>
+                        {loading 
+                        ?  <Loader
+                                type="ThreeDots"
+                                color="white"
+                                height={100}
+                                width={100}
+                                
+                            />
+                        :'Entrar'}
+                    </ConfirmButton>
                     <MessageH3 onClick={()=>history.push("/sign-up")}>Primeira vez? Cadastre-se</MessageH3>
             </DataInfo> 
            
@@ -62,28 +69,36 @@ export default function Login(){
     )
 
     function login(){
-        //alert('Tentei logar')
+        
         const body = {...loginData}
+
+        if(!body["email"] || !body["password"]){
+            alert('Os campos não podem estar vazios')
+            return
+        }
+
+        if( body["email"]==="" || body["password"]===""){
+            alert('Os campos não podem estar vazios')
+            return
+        }
+
+        setLoading(true)
+        
+        
         axios.post("http://localhost:4000/sign-in",body)
         .then((response)=>{
-            console.log(response)
+            
             setUser(response.data)
-
             const userData =response.data
-
-           // const infos = {token:response.data.token, user:response.data.user}
-
             const userDataString = JSON.stringify(userData)
             localStorage.setItem('info',userDataString)
-           // const infosString = JSON.stringify(infos);
-
-            console.log(userDataString)
-            //console.log(infosString)
-
+        
           history.push("/home")
+          setLoading(false)
         })
         .catch((e)=>{
-            console.log(e)
+            setLoading(false)
+            alert('Email ou senha incorretos')
         })
     }
 

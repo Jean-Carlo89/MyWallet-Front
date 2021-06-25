@@ -8,18 +8,15 @@ import SignUp from './Sign-up'
 import Home from './Home.js'
 import NewTransaction from './Actions/NewTransaction.js'
 
-
 import UserContext from './UserContext.js'
 import {useState} from 'react'
 
-// import newWithdraw from './Actions/NewWithdraw.js'
-// import NewWithdraw from './Actions/NewWithdraw.js'
+
 
 export default function App(){
 
   const [user,setUser] = useState(localStorage.length !== 0 ? JSON.parse(localStorage.getItem('info')):[])
- // const [user,setUser] = useState([])
- 
+  
   return (
     <UserContext.Provider value={{user,setUser}}> 
         <Router>
@@ -41,15 +38,7 @@ export default function App(){
               <Route path = "/newTransaction/:type" exact>
                 <NewTransaction/>
               </Route>
-
-              {/* <Route path = "/newWithdraw" exact>
-                <NewWithdraw/>
-              </Route> */}
-
-
-              
             </Switch>
-        
         </Router>
     </UserContext.Provider> 
   )

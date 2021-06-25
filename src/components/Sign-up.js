@@ -19,14 +19,14 @@ export default function SignUp(){
                     <Logo>MyWallet</Logo>
                     <Input placeholder="Nome" type='text' 
                             onChange={(e)=>SaveInfo(e,'name')}
-                            //disabled={loading}
+                            
                             onKeyPress={(e)=>{if(e.code==="Enter"){signUp()}}}
                             value={signUpData.name || ''}
                             />
                     
                     <Input placeholder="E-mail" type='text' 
                             onChange={(e)=>SaveInfo(e,'email')}
-                            //disabled={loading}
+                            
                             onKeyPress={(e)=>{if(e.code==="Enter"){signUp()}}}
                             value={signUpData.email || ''}
                     
@@ -34,7 +34,7 @@ export default function SignUp(){
                     
                     <Input placeholder="Senha" type='password' 
                             onChange={(e)=>SaveInfo(e,'password')}
-                            //disabled={loading}
+                           
                             onKeyPress={(e)=>{if(e.code==="Enter"){signUp()}}}
                             value={signUpData.password || ''}
                     
@@ -42,7 +42,7 @@ export default function SignUp(){
                     
                     <Input placeholder="Confirme a senha" type='password' 
                             onChange={(e)=>SaveInfo(e,'passwordConfirmation')}
-                            //disabled={loading}
+                        
                             onKeyPress={(e)=>{if(e.code==="Enter"){signUp()}}}
                             value={signUpData.passwordConfirmation || ''}
                     
@@ -56,10 +56,8 @@ export default function SignUp(){
     )
 
     function signUp(){
-        //alert('Tentei logar')
-        const body = {...signUpData}
         
-
+        const body = {...signUpData}
         
         if(!body["name"] || !body["email"] || !body["password"] || !body["passwordConfirmation"]){
             alert('Os campos não podem estar vazios')
@@ -78,8 +76,7 @@ export default function SignUp(){
 
     
         delete body["passwordConfirmation"]
-        console.log(body)
-
+        
        axios.post("http://localhost:4000/sign-up",body)
        .then(()=>{
             history.push("/")

@@ -17,7 +17,7 @@ export default function Home(){
     const [loading,setLoading] = useState(true)
     const [total,setTotal] = useState('')
     const {user,setUser} = useContext(Usercontext)
-    console.log(user)
+    
 
     const config = {
         headers:{
@@ -29,12 +29,9 @@ export default function Home(){
     useEffect(()=>{
         axios.get("http://localhost:4000/home",config)
         .then((response)=>{
-            console.log(response)
+            
             setTransactions([...response.data])
-            console.log(response.data)
-        
-            
-            
+
             let sum = 0
         
             response.data.forEach((item)=>{
@@ -46,20 +43,19 @@ export default function Home(){
                 }
             
             })
-            console.log(sum)
-    
+        
             setTotal(sum)
             setLoading(false)
             
         })
         .catch((responseError)=>{
-            console.log(responseError)
+            alert('Essa sessão expirou. Tente novamente')
+            localStorage.clear()
+            history.push("/")
         })
-        
         
     },[])
    
-    
     return(
 
        <Container>
@@ -94,8 +90,6 @@ export default function Home(){
                 <Total sum={total>=0?'green':'red'}><p>Saldo</p> <span > {(total/100).toFixed(2)} </span></Total>
             </Relative>
                
-            
-
         <ButtonsContainer>
             <AddSubtractButton onClick={()=>history.push("/newTransaction/deposit")}>
                 <CgAdd/>
@@ -107,12 +101,7 @@ export default function Home(){
                 <p>Nova saída</p>
             </AddSubtractButton>
         </ButtonsContainer>
-{/* 
-        <Link to="/sign-up">sign up</Link>
-        <Link to="/">login</Link>
-        <Link to="/newTransaction">entrada</Link>
-        <Link to="/newWithdraw">saída</Link>
-        <button onClick={()=>console.log(transactions)}>aaa</button> */}
+
 </>
 }
         </Container>
@@ -120,14 +109,30 @@ export default function Home(){
     )
 
     function logOut(){
+        
+        const userDataString = localStorage.getItem("info")
+        const userData= JSON.parse(userDataString)
+        const {token} = userData
+        const body={
+            token:token
+        }
+        
+
+
+       axios.post('http://localhost:4000/logout',body)
+       .then((response)=>{
         localStorage.clear()
         history.push("/")
+
+       })
+       .catch((err)=>{
+           alert('Ocorreu um erro ao deslogar')
+       })
     }
 }
 
 const Header=styled.div`
 width: 326px;
-border:1px solid red;
 display: flex;
 justify-content: space-between;
 margin-bottom: 15px;
@@ -146,7 +151,6 @@ margin-top: 10px;
 const MainContent = styled.ul`
  width: 326px;
  height: 446px;
- border: 1px solid yellow;
  display: flex;
  flex-direction: column;
  justify-content: ${props=>props.register ? 'flex-start' : 'center'};
@@ -155,7 +159,6 @@ const MainContent = styled.ul`
  border-radius: 5px;
  overflow-y: scroll;
  
- //position: relative;
 `
 
 const Relative = styled.div`
@@ -215,7 +218,6 @@ const AddSubtractButton = styled.button`
     p{
         width: 64px;
         height: 40px;
-        border:1px solid red;
         display:flex;
         justify-content: flex-start;
     }
@@ -227,9 +229,6 @@ const AddSubtractButton = styled.button`
 
 const Register = styled.li`
 width: 95%;
-
-border: 1px solid red;
-
 display: flex;
 justify-content: space-between;
 margin-top: 10px;
@@ -239,8 +238,7 @@ font-size: 16px;
     div{
         display: flex;
         justify-content: space-between;
-        border:1px solid blue;
-        //width: 40%;
+        
             p{
                 margin-right: 10px;
                 color: #C6C6C6;
