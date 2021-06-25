@@ -45,7 +45,10 @@ export default function Home(){
             })
         
             setTotal(sum)
+           setInterval(()=>{
             setLoading(false)
+           },800)
+            
             
         })
         .catch((responseError)=>{
