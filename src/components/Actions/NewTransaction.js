@@ -13,10 +13,13 @@ export default function NewTransaction(){
     const{user} = useContext(Usercontext)
     
     const [entryData,setEntryData] = useState({})
+    
     const history = useHistory()
 
     function saveInfo(e,key){
-        entryData[key] = e.target.value
+       
+        
+        entryData[key] = (e.target.value)
         setEntryData({...entryData})
     }
     
@@ -26,18 +29,18 @@ export default function NewTransaction(){
             
             <Input placeholder="Valor" type='number'
                      onChange={(e)=>saveInfo(e,'value')}
-                     value={entryData.value || ''}
+                     value={(entryData.value) || ''}
             />
             
             
             <Input placeholder="Descrição" type='text'
                      onChange={(e)=>saveInfo(e,'description')}
-                     value={entryData.description || ''}
+                     value={ entryData.description || ''}
                      
             />
             
             <ConfirmButton onClick={saveAction}>{type==='deposit' ? 'Salvar entrada' : 'Salvar saída'}</ConfirmButton>
-
+            
             <Return>
                 <GiReturnArrow onClick={()=>history.push("/home")}/>
                 <h2>Retornar</h2>
