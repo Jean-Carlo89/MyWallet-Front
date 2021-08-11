@@ -64,7 +64,7 @@ export default function Home(){
        <Container>
         
         {loading 
-            ? <Loader type="Circles" className='loader' color="#FFF"  timeout={3000} />
+            ? <Loader type="Circles" className='loader' color="#FFF"   />
             :
      <>   
         <Header>
