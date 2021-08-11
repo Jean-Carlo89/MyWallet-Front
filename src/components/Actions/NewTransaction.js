@@ -71,7 +71,7 @@ export default function NewTransaction(){
             return
         }
 
-        axios.post('http://localhost:4000/entry',body,config)
+        axios.post(`${process.env.REACT_APP_API_URI}/entry`,body,config)
         .then((response)=>{
             
             const resetData = {

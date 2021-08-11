@@ -27,7 +27,7 @@ export default function Home(){
     
     
     useEffect(()=>{
-        axios.get("http://localhost:4000/home",config)
+        axios.get(`${process.env.REACT_APP_API_URI}/home`,config)
         .then((response)=>{
             
             setTransactions([...response.data])
@@ -122,7 +122,7 @@ export default function Home(){
         
 
 
-       axios.post('http://localhost:4000/logout',body)
+       axios.post('process.env.REACT_APP_API_URI/logout',body)
        .then((response)=>{
         localStorage.clear()
         history.push("/")
