@@ -122,7 +122,7 @@ export default function Home(){
         
 
 
-       axios.post('process.env.REACT_APP_API_URI/logout',body)
+       axios.post(`${process.env.REACT_APP_API_URI}/logout`,body)
        .then((response)=>{
         localStorage.clear()
         history.push("/")
