@@ -1,10 +1,10 @@
 # My Wallet
 
 
-<div style="text-align:center">
-<img src="./images/myWallet.gif" />
+<div style="text-align:center;">
+    <img src="./images/myWallet.gif" />
 <div/>
-try out in [https://my-wallet-front-l3zafvzdb-jean-carlo89.vercel.app/](https://my-wallet-front-l3zafvzdb-jean-carlo89.vercel.app/)
+try out in (https://my-wallet-front-l3zafvzdb-jean-carlo89.vercel.app/)
 
 
 ## About
@@ -18,7 +18,7 @@ Check how you spend your money keeping track of your transactions
 - Add revenue
 
 ## Technologies
-    here some of the technologies used to build this project
+    Here are some of the technologies used to build this project
 <p>
   <img style='margin: 5px;' src='https://img.shields.io/badge/styled-components%20-%2320232a.svg?&style=for-the-badge&color=b8679e&logo=styled-components&logoColor=%3a3a3a'>
   <img style='margin: 5px;' src='https://img.shields.io/badge/axios%20-%2320232a.svg?&style=for-the-badge&color=informational'>
