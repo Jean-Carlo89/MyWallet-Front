@@ -4,7 +4,8 @@
 <div style="text-align:center;">
     <img src="./images/myWallet.gif" />
 <div/>
-try out in (https://my-wallet-front-l3zafvzdb-jean-carlo89.vercel.app/)
+try out in (https://my-wallet-front-beta.vercel.app
+/)
 
 
 ## About
