@@ -1,8 +1,8 @@
 # My Wallet
 
 
-<div style="text-align:center">
-<img src="./images/myWallet.gif" />
+<div style="text-align:center;">
+    <img src="./images/myWallet.gif" />
 <div/>
 try out in [https://my-wallet-front-l3zafvzdb-jean-carlo89.vercel.app/](https://my-wallet-front-l3zafvzdb-jean-carlo89.vercel.app/)
 
