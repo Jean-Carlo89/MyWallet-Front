@@ -5,7 +5,7 @@
     <img src="./images/myWallet.gif" />
 <div/>
 
-/)
+
 
 
 ## About
