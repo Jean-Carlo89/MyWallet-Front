@@ -4,7 +4,7 @@
 <div style="text-align:center;">
     <img src="./images/myWallet.gif" />
 <div/>
-try out in (https://my-wallet-front-beta.vercel.app
+
 /)
 
 
