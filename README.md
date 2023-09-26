@@ -32,16 +32,17 @@ Check how you spend your money keeping track of your transactions
 1. Clone this repository
 2. Clone the back-end repository at https://github.com/Jean-Carlo89/MyWallet-Backend
 3. Follow instructions to run back-end at https://github.com/Jean-Carlo89/MyWallet-Backend
-4. Install dependencies
+4. create a .env with the backend endpoint like shown in .env.example
+5. Install dependencies
 
    ### `npm i`
 
-5. create a .env with your back-end url like in .env.example
-6. Run the front-end with
+6. create a .env with your back-end url like in .env.example
+7. Run the front-end with
 
    ### `npm start`
 
-7. open 
+8. open 
  http://localhost:3000 on your browser
   
 
